@@ -20,9 +20,9 @@ var bwipjs = require('./node-bwipjs');	// ./ required for local use
 //		require('fs').readFileSync(__dirname + '/fonts/Inconsolata.otf', 'binary'));
 
 var server = http.createServer(function(req, res) {
-	// If the url does not begin /?bcid= then 404.  Otherwise, we end up
+	// If the url does not contain a bcid parameter then 404.  Otherwise, we end up
 	// returning 400 on requests like favicon.ico.
-	if (req.url.indexOf('/?bcid=') != 0) {
+	if (!/[?&]bcid=/.test(req.url)) {
 		res.writeHead(404, { 'Content-Type':'text/plain' });
 		res.end('BWIP-JS: Unknown request format.', 'utf8');
 	} else {
